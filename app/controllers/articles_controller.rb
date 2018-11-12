@@ -1,5 +1,16 @@
 class ArticlesController < ApplicationController
-  def new
+
+  def index
+  end
+
+  def show
+    @article = Article.find(params[:id])
+    # find the article passing param id to get the id from the request
+    # use an instance variable to hold a reference to the article object which will
+    # pass all the instance variables to the view
+  end
+
+  def news
   end
 
   def create
@@ -21,20 +32,15 @@ class ArticlesController < ApplicationController
 
   end
 
-  def update
+  def edit
   end
 
-  def edit
+  def update
   end
 
   def destroy
   end
 
-  def index
-  end
-
-  def show
-  end
 
   private
     def article_params
