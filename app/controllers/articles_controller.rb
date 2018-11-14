@@ -12,7 +12,8 @@ class ArticlesController < ApplicationController
     # pass all the instance variables to the view
   end
 
-  def news
+  def new
+    @article = Article.new
   end
 
   def create
@@ -28,10 +29,14 @@ class ArticlesController < ApplicationController
     @article.save
     # this saves the model in the database
     # this returns a boolean whether the article was saved or not.
-
-    redirect_to @article
-    # we redirect user to the show action.
-
+      if @article.save
+        redirect_to @article
+        # we redirect user to the show action.
+      else
+        render 'new'
+        # when validation return false we will show the form back to the user
+        # the @article object is passed back to the new template when it is rendered
+      end
   end
 
   def edit

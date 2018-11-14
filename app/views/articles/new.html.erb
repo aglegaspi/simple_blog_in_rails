@@ -1,8 +1,31 @@
 <h1>New Article</h1>
 
-
 <%= form_with scope: :article, url: articles_path, local: true do |form| %>
 <%# This line tells the helper with the this form is for "article" %>
+
+    <% if @article.errors.any? %>
+        <div id="error_explanation">
+            <h2>
+                <%= pluralize(@article.errors.count, "error") %> 
+        prohibited 
+                this article from being saved:
+            </h2>
+            <ul>
+                <% @article.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+        <%#
+        We check if there are any errors, if true then we show a list of errors. pluralize checks if there is more than one
+        item if so then it is pluralized. 
+
+        we added @article = Article.new in ArticlesController so that it not return nil when checking for errors.
+
+        rails automtically makes a class "field_with_errors". you can define a rule to make them stand out.
+        %>
 
     <p>
         <%= form.label :title %>
@@ -17,6 +40,7 @@
     <p>
         <%= form.submit %>
     </p>
+
 <% end %>
 
-<%=  link_to 'Back', articles_path %>
+<%= link_to 'Back', articles_path %>
