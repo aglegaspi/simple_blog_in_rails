@@ -40,9 +40,21 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    @article = Article.find(params[:id])
   end
 
   def update
+    @article = Article.find(params[:id])
+
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render 'edit'
+    end
+
+    # the update method is used when you want to update a record that already exists
+    # it accepts a hash containing the attributes "article_params" that you want to update
+    # if there's an error we will show the form back to the user
   end
 
   def destroy
