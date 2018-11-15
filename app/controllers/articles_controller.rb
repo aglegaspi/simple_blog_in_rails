@@ -1,22 +1,30 @@
 class ArticlesController < ApplicationController
 
+  http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
+
   def index
+
     @articles = Article.all
     
   end
 
   def show
+    
     @article = Article.find(params[:id])
     # find the article passing param id to get the id from the request
     # use an instance variable to hold a reference to the article object which will
     # pass all the instance variables to the view
+
   end
 
   def new
+
     @article = Article.new
+
   end
 
   def create
+
     # render plain: params[:article].inspect
     # this renders the parameters in plain text and displays in view
 
@@ -37,13 +45,17 @@ class ArticlesController < ApplicationController
         # when validation return false we will show the form back to the user
         # the @article object is passed back to the new template when it is rendered
       end
+
   end
 
   def edit
+
     @article = Article.find(params[:id])
+
   end
 
   def update
+
     @article = Article.find(params[:id])
 
     if @article.update(article_params)
@@ -55,6 +67,7 @@ class ArticlesController < ApplicationController
     # the update method is used when you want to update a record that already exists
     # it accepts a hash containing the attributes "article_params" that you want to update
     # if there's an error we will show the form back to the user
+    
   end
 
   def destroy
