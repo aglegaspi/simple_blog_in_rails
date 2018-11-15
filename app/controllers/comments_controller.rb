@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
 
     def create
         @article = Article.find(params[:article_id])
-        # this gets a hold of the targeted article
+        # this gets a hold of the targeted article by id
         @comment = @article.comments.create(comment_params)
         # this method creates and saves the comment
         # and links the comment to a particular article
@@ -10,6 +10,17 @@ class CommentsController < ApplicationController
         redirect_to article_path(@article)
         # made new comment is saved they are redirected to the show page for the article
         
+    end
+
+    def destroy
+        @article = Article.find(params[:article_id])
+        # finds the targeted article by id
+        @comment = @article.comments.find(params[:id])
+        # finds the exact comment affiliated with the article
+        @comment.destroy
+        # removes the comment from the database
+        redirect_to article_path(@article)
+        # redirect you to the show action
     end
 
     private
